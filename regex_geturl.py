@@ -4,32 +4,29 @@ import os
 import re
 import requests as rq
 
-infile = "./AUTOSAR.html"
-outfile = "./outfile.txt"
-#infilep = open(infile,"r")
-outfilep = open(outfile,"w+")
 
+def findurls(src, pattern):
+    rexp = re.compile(pattern)
+
+    with open(src,"r") as srcp:
+        for line in srcp:
+            tmp = rexp.search(line)
+            if tmp:
+                yield tmp
+
+
+src = "./AUTOSAR.html"
+dest = "./outfile.txt"
 pattern = r"https://.+((\.zip)|(\.pdf))"
-rexp = re.compile(pattern)
 
-#try:
-with open(infile,"r") as infilep:
-    for line in infilep:
-        tmp = rexp.search(line)
-        if tmp:
-            outfilep.write(tmp.group()+"\n")
+with open(dest,"w+") as destp:
+    for url in findurls(src, pattern):
+        destp.write(url.group()+"\n")
+        
+
 '''
-finally:
-    infilep.close()
-    '''
-
-outfilep.close()
-
-
-urlp = open(outfile,"r")
-
-for url in urlp:
-    print url
-    #rq.get(url).content()
-
-urlp.close()
+with open(dest,"r") as urlp:
+    for url in urlp:
+        print url
+        #rq.get(url).content()
+'''
