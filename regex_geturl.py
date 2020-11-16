@@ -1,3 +1,4 @@
+#!python2
 # -*- coding:utf-8 -*-
 
 import os
@@ -15,7 +16,7 @@ def findurls(src, pattern):
                 yield tmp
 
 
-src = "./AUTOSAR.html"
+src = "./AUTOSAR42.html"
 dest = "./outfile.txt"
 pattern = r"https://.+((\.zip)|(\.pdf))"
 
